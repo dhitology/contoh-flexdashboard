@@ -1,0 +1,54 @@
+---
+title: "Contoh Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+# Load Library
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+```
+
+```{r include=FALSE}
+# Load Data
+df <- read_csv("customer-churn.csv")
+glimpse(df)
+```
+
+Column 
+-----------------------------------------------------------------------
+
+### Jumlah Churn
+
+```{r}
+# Jumlah Pelanggan Churn
+plot_churn <- df %>%
+  ggplot(aes(x = Churn, fill = Churn)) +
+  geom_bar() +
+  theme(legend.position = "bottom")
+
+ggplotly(plot_churn,  tooltip = c("count"))
+```
+
+Column
+-----------------------------------------------------------------------
+
+### Tipe Kontrak
+
+```{r}
+# Tipe Kontrak
+plot_kontrak <- df %>%
+  ggplot(aes(x = Contract,  fill = Contract)) +
+  geom_bar() +
+  theme(legend.position = "bottom")
+
+ggplotly(plot_kontrak,  tooltip = c("count"))
+
+
+```
+
+
